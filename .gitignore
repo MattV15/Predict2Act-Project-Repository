@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Experiment outputs (rerun to regenerate)
+runs/
+forecasting_handoff/runs/
+
+# Editors / OS
+.vscode/
+.DS_Store
