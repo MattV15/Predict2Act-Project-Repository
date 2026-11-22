@@ -1,6 +1,6 @@
 # Master Dataset Documentation: `combined_oura_plus_personal.csv` 
 
-## 1. Dataset Purpose 
+## 1. Dataset Purpose
 This file serves as the project's Master Dataset.
 
 The dataset combines the UC Irvine Oura sleep records and the personal Oura Ring export into a common schema that can be used for downstream preprocessing and modeling.
