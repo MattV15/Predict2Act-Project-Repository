@@ -13,7 +13,20 @@ python -m pip install -r requirements.txt
 python -m forecasting.experiments --study ablation --data data/study --output runs/ablation
 ```
 
-Use `--study all` for the full experiment suite. See [the English report](docs/REPORT.md) for reference results. The fixture contains dated personal sleep records, so share this bundle through the private group repository with approved collaborators.
+Use `--study all` for the full experiment suite. See [the English report](docs/REPORT.md) for reference results.
+
+### Model comparison
+
+```sh
+python -m forecasting.experiments --study models --seeds 5 --data data/study --output runs/models-initials
+python -m forecasting.summarize --run runs/models-initials
+```
+
+- `--seeds 5` repeats every random model (ExtraTrees, Random Forest, MLP) with seeds 498–502 and reports mean ± SD. The default `--seeds 1` reproduces the report exactly.
+- The run stops if XGBoost is missing. Install `requirements.txt`, or pass `--skip-xgboost` knowingly.
+- `forecasting.summarize` picks one setting per model family by **validation** MAE and reports its **test** MAE, gain over the personal median, and per-person test MAE. It writes `summary_models.md/.csv` and `summary_other.md` into the run folder.
+- Method names are `Family (setting)`, e.g. `Ridge (alpha=100)`. Baselines are the personal median, the recent 4-week median (new), and reuse of the last 7- or 14-day score.
+- KNN does not accept sample weights, so it is the one model fitted without equal donor weighting. The fixture contains dated personal sleep records, so share this bundle through the private group repository with approved collaborators.
 
 ## Rebuild the cleaned inputs
 
