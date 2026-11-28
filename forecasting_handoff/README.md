@@ -28,6 +28,18 @@ python -m forecasting.summarize --run runs/models-initials
 - Method names are `Family (setting)`, e.g. `Ridge (alpha=100)`. Baselines are the personal median, the recent 4-week median (new), and reuse of the last 7- or 14-day score.
 - KNN does not accept sample weights, so it is the one model fitted without equal donor weighting. The fixture contains dated personal sleep records, so share this bundle through the private group repository with approved collaborators.
 
+### Feature ablation, sensitivity and robustness
+
+Run the three studies from this directory. The first command fits the seed-498 reference and all comparison methods. The second summarizes the feature and sensitivity variants on matching dates. The third refits the reference on the original donor windows, checks its predictions against the saved run, then masks observed input nights at evaluation time.
+
+```sh
+python -m forecasting.experiments --study all --seeds 1 --data data/study --output runs/supplement
+python -m forecasting.summarize --run runs/supplement
+python -m forecasting.robustness --data data/study --run runs/supplement --output runs/supplement/robustness
+```
+
+See sections 2–4 of the [forecasting report](docs/REPORT.md). The robustness directory contains the evaluation slices, paired bootstrap intervals, and missing-night errors by cutoff and by target record.
+
 ## Rebuild the cleaned inputs
 
 The supplied snapshot is ready for training. To reproduce the data preparation stage from original exports, obtain the Oura sleep export directory, personal Oura trends workbook, harmonized `combined_nights.csv`, and original split inventory through the team's approved data-sharing channel:
